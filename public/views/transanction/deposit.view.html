@@ -1,0 +1,30 @@
+
+
+<div ng-if="error" class="alert alert-danger">
+  {{error}}
+</div>
+
+<input
+  ng-model="user.accountNumber"
+  class="form-control"
+  placeholder="Account Number"/>
+  <input
+    ng-model="transaction.transfertype"
+    ng-value="credit"
+    placeholder="transfertype"/>
+<input
+  ng-model="transaction.fromAccount"
+  class="form-control"
+  placeholder="Enter Benficiery A/C"/>
+  <input
+    ng-model="transaction.description"
+    class="form-control"
+    placeholder="Description"/>
+
+<button
+  ng-click="withdrawl(transaction)"
+  class="btn btn-primary btn-block">
+
+  Debit
+
+</button>

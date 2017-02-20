@@ -1,0 +1,133 @@
+<div ng-show="currentUser">
+
+  Welcome {{currentUser.username}}
+<div class="container text center">
+  <div class="panel panel-primary">
+      <div class="panel-heading">Account Summery</div>
+      <div class="panel-body">
+        <table class="table table-striped">
+            <tr>
+                Account Number:<td>{{currentUser.accountNumber}}</td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                Available Balance<td>{{currentUser.balance}}</td>  &nbsp; &nbsp;
+                <td><button ng-click="viewTransactions(transactions)" class="btn btn-Success">View</button>
+            </tr>
+        </table>
+      </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Debit Transaction</div>
+        <div class="panel-body">
+    <input
+      ng-model="user.accountNumber"
+      class="form-control"
+      placeholder="Account Number"/>
+      <input
+        ng-model="transaction.transfertype"
+        ng-value="credit" class="form-control"
+        placeholder="transfertype"/>
+    <input
+      ng-model="transaction.fromAccount"
+      class="form-control"
+      placeholder="Enter Benficiery A/C"/>
+      <input
+        ng-model="transaction.description"
+        class="form-control"
+        placeholder="Description"/>
+
+    <button
+      ng-click="withdrawl(transaction)"
+      class="btn btn-primary btn-block">
+
+      Debit
+
+    </button></div></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Credit Tranasaction</div>
+        <div class="panel-body">
+    <input
+      ng-model="user.accountNumber"
+      class="form-control"
+      placeholder="Account Number"/>
+      <input
+        ng-model="transaction.transfertype"
+        ng-value="credit" class="form-control"
+        placeholder="transfertype"/>
+    <input
+      ng-model="transaction.fromAccount"
+      class="form-control"
+      placeholder="Enter Benficiery A/C"/>
+      <input
+        ng-model="transaction.description"
+        class="form-control"
+        placeholder="Description"/>
+
+    <button
+      ng-click="deposit(transaction)"
+      class="btn btn-primary btn-block">
+
+      credit
+
+    </button></div></div>
+
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tranasaction summary</summary></div>
+        <div class="panel-body">
+
+
+    <div style="height:300px;">
+    	<div style="height:70px" id="anchor"></div>
+    	<table class="table table-bordered table-striped">
+
+        <thead >
+          <tr>
+            <td>
+
+                Date-Time
+
+            </td>
+            <td><a>Amount</a></td>
+            <td><a>Transaction Type</a></td>
+          </tr>
+        </thead>
+
+        <tbody >
+
+
+          <tr  ng-repeat="tx in transaction">
+            <td>{{ tx.balance }}</td>
+            <td>{{ tx.date }}</td>
+            <td>{{ tx.transfertype }}</td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+</div></div>
+      <!-- <ul class="nav nav-pills">
+        <li class="active"><a href="#transaction.view.html">Transactions</a></li>
+        <li><a href="#deposit.view.html">Deposit</a></li>
+        <li><a href="#withdraw.view.html">Withdraw</a></li>
+      </ul> -->
+    </div>
+
+  </div>
+
+<script type="text/ng-template" id="transaction.view.html">
+
+  <h2> Transactions </h2>
+
+</script>
+
+<script type="text/ng-template" id="withdraw.view.html">
+
+  <h2> with draw </h2>
+
+</script>
+<script type="text/ng-template" id="deposit.view.html">
+
+  <h2> Deposit</h2>
+
+</script>
