@@ -21,6 +21,7 @@ module.exports = function() {
       // findUserById: findUserById,
         withdrawl: withdrawl,
         deposit: deposit,
+        findAllTransactions: findAllTransactions,
         getMongooseModel: getMongooseModel
     };
     return api;
@@ -36,6 +37,10 @@ module.exports = function() {
 
     function getMongooseModel() {
         return TransactionModel;
+    }
+    function findAllTransactions(transaction)
+    {
+      return TransactionModel.find();
     }
 
     // function findUserByUsername(username) {

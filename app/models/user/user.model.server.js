@@ -9,7 +9,7 @@ module.exports = function() {
             firstName: String,
             lastName: String,
             email: String,
-            accountNumber: {type: Number, default: function(){return Math.random()}},
+            accountNumber: Number,
             balance : 0,
             roles: [String]
         }, {collection: "user"});

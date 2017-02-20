@@ -1,9 +1,9 @@
 (function()
 {
     angular
-        .module("PassportApp")
+        .module("BankAPP")
         .controller("NavCtrl", NavCtrl);
-    
+
     function NavCtrl($scope, UserService, $location, $rootScope)
     {
         $scope.logout = logout;

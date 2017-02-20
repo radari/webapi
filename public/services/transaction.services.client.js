@@ -1,13 +1,14 @@
 (function(){
     angular
-        .module("PassportApp")
+        .module("BankAPP")
         .factory("TransactionService", TransactionService);
 
     function TransactionService($http) {
         var api = {
             logout: logout,
             withdrawl: withdrawl,
-            deposit: deposit
+            deposit: deposit,
+            findAllTransactions: findAllTransactions
         };
         return api;
 
@@ -15,10 +16,15 @@
             return $http.post("/api/logout");
         }
         function withdrawl(transaction) {
-            return $http.post('/api/transaction', transaction);
+            return $http.post('/api/withdraw', transaction);
         }
         function deposit(transaction) {
-            return $http.post('/api/transaction', transaction);
+            return $http.post('/api/deposit', transaction);
+        }
+
+        function findAllTransactions()
+        {
+          return $http.get('/api/transactions');
         }
     }
 })();

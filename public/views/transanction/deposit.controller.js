@@ -1,14 +1,14 @@
 (function()
 {
     angular
-        .module("PassportApp")
+        .module("BankAPP")
         .controller("DepositCtrl", DepositCtrl);
 
     function DepositCtrl($scope, $location, $rootScope, TransactionService)
     {
         $scope.deposit = deposit;
 
-
+console.log("deposit processing")
         function deposit(transaction)
         {
             if(transaction)
@@ -18,7 +18,7 @@
                     function(response)
                     {
                         $rootScope.currentUser = response.data;
-                        $location.url("/deposit");
+                        $location.url("/home");
                     },
                     function(err) {
                         $scope.error = err;

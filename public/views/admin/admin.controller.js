@@ -3,7 +3,7 @@
 (function()
 {
     angular
-        .module("PassportApp")
+        .module("BankAPP")
         .controller("AdminController", AdminController);
 
     function AdminController($scope, UserService)

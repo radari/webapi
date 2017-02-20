@@ -10,6 +10,7 @@
         <td><input ng-model="user.lastName" class="form-control" placeholder="last"/></td>
         <td><input ng-model="user.email" class="form-control" type="email" placeholder="email"/></td>
         <td><input ng-model="user.accountNumber" class="form-control" placeholder="Account Number"/></td>
+        <td><input ng-model="user.balance" ng-show=!user.balance class="form-control" placeholder="Balance"/></td>
         <td><input ng-model="user.roles" class="form-control" placeholder="roles"/></td>
         <td><button ng-click="add(user)" class="btn btn-primary">&plus;</button>
         <td><button ng-click="update(user)" class="btn btn-success">&check;</button>
@@ -24,6 +25,7 @@
         <td>{{user.lastName}}</td>
         <td>{{user.email}}</td>
         <td>{{user.accountNumber}}</td>
+      <td>{{user.balance}}</td>
         <td>{{user.roles}}</td>
         <td><button ng-click="remove(user)" class="btn btn-danger">X</button>
         <td><button ng-click="select(user)" class="btn btn-success">...</button>

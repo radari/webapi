@@ -35,13 +35,12 @@
               })
               .when('/withdraw',{
                 templateUrl:'views/transanction/withdraw.view.html',
-                controller:'WithdrawCtrl',
+                controller:'WithdrawnCtrl',
                 controllerAs:'model'
               })
-              .when('/transaction',{
+              .when('/transactions',{
                 templateUrl:'views/transanction/transaction.view.html',
                 controller:'TransactionCtrl',
-                controllerAs:'model'
               })
               .when('/deposit',{
                 templateUrl:'views/transanction/deposit.view.html',

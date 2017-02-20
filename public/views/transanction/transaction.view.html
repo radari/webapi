@@ -1,62 +1,17 @@
-
-
-<div ng-if="error" class="alert alert-danger">
-  {{error}}
-</div>
-
-
-
-
-
 <div style="height:300px;">
 	<div style="height:70px" id="anchor"></div>
 	<table class="table table-bordered table-striped">
-
     <thead >
       <tr>
-        <td>
-
-            Date-Time
-
-        </td>
-        <td><a>Amount</a></td>
-        <td><a>Transaction Type</a></td>
+        <td>  Date-Time</td>        <td><a>Amount</a></td>        <td><a>Transaction Type</a></td>
       </tr>
     </thead>
-
     <tbody >
-
-
       <tr  ng-repeat="tx in transaction">
-        <td>{{ tx.balance }}</td>
-        <td>{{ tx.date }}</td>
-        <td>{{ tx.transfertype }}</td>
+       <!-- <td>{{ tx.date }}</td> -->
+        <td>{{ tx.fromAccount}}</td>          <td>{{ tx.transfertype }}</td>
       </tr>
     </tbody>
 
   </table>
 </div>
-
-
-
-<input
-  ng-model="user.accountNumber"
-  class="form-control"
-  placeholder="Account Number"/>
-
-<input
-  ng-model="transaction.from_Account"
-  class="form-control"
-  placeholder="Enter Benficiery A/C"/>
-  <input
-    ng-model="transaction.description"
-    class="form-control"
-    placeholder="Description"/>
-
-<button
-  ng-click="withdrawl(transaction)"
-  class="btn btn-primary btn-block">
-
-  Debit
-
-</button>

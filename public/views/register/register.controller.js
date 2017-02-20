@@ -1,9 +1,9 @@
 (function()
 {
     angular
-        .module("PassportApp")
+        .module("BankAPP")
         .controller("RegisterCtrl", RegisterCtrl);
-        
+
     function RegisterCtrl($scope, $location, $rootScope, UserService)
     {
         $scope.register = register;

@@ -1,16 +1,14 @@
 
 
-<div ng-if="error" class="alert alert-danger">
-  {{error}}
-</div>
+
 
 <input
-  ng-model="user.accountNumber"
+  ng-model="transaction.toAccount"
   class="form-control"
   placeholder="Account Number"/>
   <input
     ng-model="transaction.transfertype"
-    ng-value="credit"
+    ng-value="credit" class="form-control"
     placeholder="transfertype"/>
 <input
   ng-model="transaction.fromAccount"
@@ -22,7 +20,7 @@
     placeholder="Description"/>
 
 <button
-  ng-click="withdrawl(transaction)"
+  ng-click="deposit(transaction)"
   class="btn btn-primary btn-block">
 
   Debit

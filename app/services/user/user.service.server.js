@@ -177,7 +177,7 @@ function createUser(req, res) {
     if(newUser.roles && newUser.roles.length > 1) {
         newUser.roles = newUser.roles.split(",");
     } else {
-        newUser.roles = ["student"];
+        newUser.roles = ["Customer"];
     }
 
     // first check if a user already exists with the username

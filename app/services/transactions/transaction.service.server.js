@@ -6,12 +6,13 @@ module.exports = function(app) {
 
     var transactionModel = require("../../models/transactions/transaction.model.server.js")();
 
-    var auth = authorized;
+  //  var auth = authorized;
   //  app.post  ('/api/login', passport.authenticate('local'), login);
     app.post  ('/api/logout',         logout);
-    app.get   ('/api/loggedin',       loggedin);
-    app.post('/api/transaction', auth, withdrawl);
-    app.post('/api/transaction', auth, deposit);
+  //  app.get   ('/api/loggedin',       loggedin);
+    app.post('/api/withdraw',  withdrawl);
+    app.post('/api/deposit',  deposit);
+    app.get('/api/transactions', findAllTransactions)
   //  passport.use(new LocalStrategy(localStrategy));
     //passport.serializeUser(serializeUser);
     //passport.deserializeUser(deserializeUser);
@@ -52,9 +53,7 @@ module.exports = function(app) {
     //     res.json(user);
     // }
 
-    function loggedin(req, res) {
-        res.send(req.isAuthenticated() ? req.user : '0');
-    }
+
 
     function logout(req, res) {
         req.logOut();
@@ -62,64 +61,87 @@ module.exports = function(app) {
     }
 
 
+  //   function withdrawl(req, res) {
+  //       var withdraw = req.body;
+  //     transactionModel
+  //     .withdrawl(req.params.id, debit)
+  //     .then(
+  //       function(transaction)
+  //       {
+  //         return TransactionModel.withdrawl()
+  //       } ,
+  //     function(err){
+  //         res.status(400).send(err);
+  //     }
+  //   )
+  // .then(
+  //     function(transaction){
+  //         res.json(transaction);
+  //     },
+  //     function(err){
+  //         res.status(400).send(err);
+  //     }
+  // );
+  //
+  //   }
+
     function withdrawl(req, res) {
         var withdraw = req.body;
       transactionModel
-      .withdrawl(req.params.id, debit)
+      .withdrawl(withdraw)
       .then(
-        function(transaction)
-        {
-          return TransactionModel.withdrawl()
-        } ,
-      function(err){
-          res.status(400).send(err);
-      }
-    )
-  .then(
-      function(transaction){
-          res.json(transaction);
-      },
-      function(err){
-          res.status(400).send(err);
-      }
-  );
-
-    }
+        function(err){
+            res.status(400).send(err);
+        }
+      )
+  }
 
     function deposit(req, res) {
         var credit = req.body;
       transactionModel
-      .deposit(req.params.id, credit)
+      .deposit(credit)
       .then(
-        function(transaction)
-        {
-            return TransactionModel.deposit()
-        },
-      function(err){
-          res.status(400).send(err);
-      }
-)
-  .then(
-      function(transaction){
-          res.json(transaction);
-      },
-      function(err){
-          res.status(400).send(err);
-      }
-  ); }
-
-    function isAdmin(user) {
-        if(user.roles.indexOf("admin") > 0) {
-            return true
+        function(err){
+            res.status(400).send(err);
         }
-        return false;
+      )
+}
+
+function findAllTransactions(req, res) {
+    transactionModel
+            .findAllTransactions()
+            .then(
+                function (transactions) {
+                    res.json(transactions);
+                },
+                function () {
+                    res.status(400).send(err);
+                }
+            );
+    } else {
+        res.status(403);
     }
+}
 
-    function authorized (req, res, next) {
-        if (!req.isAuthenticated()) {
-            res.sendStatus(401);
-        } else {
-            next();
-        }
-    };
+//     function deposit(req, res) {
+//         var credit = req.body;
+//       transactionModel
+//       .deposit(credit)
+//       .then(
+//         function(transaction)
+//         {
+//             return TransactionModel.deposit()
+//         },
+//       function(err){
+//           res.status(400).send(err);
+//       }
+// )
+//   .then(
+//       function(transaction){
+//           res.json(transaction);
+//       },
+//       function(err){
+//           res.status(400).send(err);
+//       }
+//   ); }
 }

@@ -1,16 +1,9 @@
-
-
-<div ng-if="error" class="alert alert-danger">
-  {{error}}
-</div>
-
-<input
-  ng-model="user.accountNumber"
+<input  ng-model="transaction.toAccount"
   class="form-control"
   placeholder="Account Number"/>
   <input
     ng-model="transaction.transfertype"
-    ng-value="debit"
+    ng-value="debit" class="form-control"
     placeholder="transfertype"/>
 <input
   ng-model="transaction.fromAccount"

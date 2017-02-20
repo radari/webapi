@@ -1,9 +1,9 @@
 (function()
 {
     angular
-        .module("PassportApp")
+        .module("BankAPP")
         .controller('ProfileCtrl', ProfileCtrl);
-    
+
     function ProfileCtrl($scope, UserService)
     {
         $scope.update = update;
