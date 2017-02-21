@@ -12,7 +12,7 @@
         {
             if(user.password != user.password2 || !user.password || !user.password2)
             {
-                $scope.error = "Your passwords don't match";
+                $scope.error = "Your passwords doesn't match";
             }
             else
             {

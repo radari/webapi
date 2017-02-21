@@ -14,11 +14,8 @@
             if(transaction)
             TransactionService
                 .withdrawl(transaction)
-                .then(
-                    function(response)
-                    {
-                        $rootScope.currentUser = response.data;
-                        $location.url("/withdraw");
+                .then(function(transaction){
+                      $location.url("/withdraw");
                     },
                     function(err) {
                         $scope.error = err;

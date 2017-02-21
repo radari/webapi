@@ -5,3 +5,7 @@
 .panel{
     display: inline-block;
 }
+
+.listusers{
+  display: inline-block;
+}

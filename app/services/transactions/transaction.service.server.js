@@ -23,6 +23,7 @@ module.exports = function(app) {
 
     function withdrawl(req, res) {
         var withdraw = req.body;
+        console.log(withdraw);
       transactionModel
       .withdrawl(withdraw)
       .then(
