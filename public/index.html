@@ -66,10 +66,10 @@
             <li ng-show="!currentUser" role="presentation"><a href="#register">Register</a></li>
 
 
-              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('student') == -1" role="presentation">  <a href="#profile">Profile</a> </li>
-              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('student') == -1" role="presentation"><a href="#deposit">Deposit</a></li>
-              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('student') == -1" role="presentation"> <a href="#withdraw">withdraw</a></li>
-              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('student') == -1" role="presentation" ><a href="#transactions">Transactions</a> </li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation">  <a href="#profile">Profile</a> </li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation"><a href="#deposit">Deposit</a></li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation"> <a href="#withdraw">withdraw</a></li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href="#transactions">Transactions</a> </li>
 
                 <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#admin">Admin</a>
                 </li>

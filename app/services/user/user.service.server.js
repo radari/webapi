@@ -66,7 +66,7 @@ function logout(req, res) {
 
 function register(req, res) {
     var newUser = req.body;
-    newUser.roles = ['student'];
+    newUser.roles = ['customer'];
 
     userModel
         .findUserByUsername(newUser.username)
