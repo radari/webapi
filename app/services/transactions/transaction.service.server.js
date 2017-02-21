@@ -13,77 +13,13 @@ module.exports = function(app) {
     app.post('/api/withdraw',  withdrawl);
     app.post('/api/deposit',  deposit);
     app.get('/api/transactions', findAllTransactions)
-  //  passport.use(new LocalStrategy(localStrategy));
-    //passport.serializeUser(serializeUser);
-    //passport.deserializeUser(deserializeUser);
-
-    // function localStrategy(username, password, done) {
-    //     transactionModel
-    //         .findUserByCredentials({username: username, password: password})
-    //         .then(
-    //             function(user) {
-    //                 if (!user) { return done(null, false); }
-    //                 return done(null, user);
-    //             },
-    //             function(err) {
-    //                 if (err) { return done(err); }
-    //             }
-    //         );
-    // }
-    //
-    // function serializeUser(user, done) {
-    //     done(null, user);
-    // }
-    //
-    // function deserializeUser(user, done) {
-    //     transactionModel
-    //         .findUserById(user._id)
-    //         .then(
-    //             function(user){
-    //                 done(null, user);
-    //             },
-    //             function(err){
-    //                 done(err, null);
-    //             }
-    //         );
-    // }
-    //
-    // function login(req, res) {
-    //     var user = req.user;
-    //     res.json(user);
-    // }
-
+    app.get('/api/transactions/:accountNumber', findAllTransactionsByAccNo)
 
 
     function logout(req, res) {
         req.logOut();
         res.sendStatus(200)
     }
-
-
-  //   function withdrawl(req, res) {
-  //       var withdraw = req.body;
-  //     transactionModel
-  //     .withdrawl(req.params.id, debit)
-  //     .then(
-  //       function(transaction)
-  //       {
-  //         return TransactionModel.withdrawl()
-  //       } ,
-  //     function(err){
-  //         res.status(400).send(err);
-  //     }
-  //   )
-  // .then(
-  //     function(transaction){
-  //         res.json(transaction);
-  //     },
-  //     function(err){
-  //         res.status(400).send(err);
-  //     }
-  // );
-  //
-  //   }
 
     function withdrawl(req, res) {
         var withdraw = req.body;
@@ -98,6 +34,14 @@ module.exports = function(app) {
 
     function deposit(req, res) {
         var credit = req.body;
+  //       currentBalance=user.balance;
+  //       if(typeof(credit.balance)==="number"){
+	// 	currentBalance +=credit.balance ;
+	// }
+	// else{
+	// 	alert("error");
+	// 	console.log("error");
+	// }
       transactionModel
       .deposit(credit)
       .then(
@@ -118,30 +62,18 @@ function findAllTransactions(req, res) {
                     res.status(400).send(err);
                 }
             );
-    } else {
-        res.status(403);
-    }
-}
+  }
 
-//     function deposit(req, res) {
-//         var credit = req.body;
-//       transactionModel
-//       .deposit(credit)
-//       .then(
-//         function(transaction)
-//         {
-//             return TransactionModel.deposit()
-//         },
-//       function(err){
-//           res.status(400).send(err);
-//       }
-// )
-//   .then(
-//       function(transaction){
-//           res.json(transaction);
-//       },
-//       function(err){
-//           res.status(400).send(err);
-//       }
-//   ); }
+  function findAllTransactionsByAccNo(req, res) {
+      transactionModel
+              .findAllTransactionsByAccNo(accountNumber)
+              .then(
+                  function (transactions) {
+                      res.json(transactions);
+                  },
+                  function () {
+                      res.status(400).send(err);
+                  }
+              );
+    }
 }

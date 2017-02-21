@@ -8,7 +8,8 @@
             logout: logout,
             withdrawl: withdrawl,
             deposit: deposit,
-            findAllTransactions: findAllTransactions
+            findAllTransactions: findAllTransactions,
+            findAllTransactionsByAccNo: findAllTransactionsByAccNo
         };
         return api;
 
@@ -25,6 +26,11 @@
         function findAllTransactions()
         {
           return $http.get('/api/transactions');
+        }
+
+        function findAllTransactionsByAccNo(account, user)
+        {
+          return $http.get("api/transactions/:account");
         }
     }
 })();

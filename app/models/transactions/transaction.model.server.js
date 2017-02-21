@@ -38,31 +38,17 @@ module.exports = function() {
     function getMongooseModel() {
         return TransactionModel;
     }
-    function findAllTransactions(transaction)
+    function findAllTransactions(accountNumber)
     {
-      return TransactionModel.find();
+      return TransactionModel.find({toAccount: accountNumber},function(err, transactions) {
+        if( err || !transactions) console.log("No transaction users found");
+        else TransactionModel.forEach( function(listtransaction) {
+          console.log(listtransaction);
+        } );
+      });
     }
 
-    // function findUserByUsername(username) {
-    //     return UserModel.findOne({username: username});
-    // }
-    //
-    // function getMongooseModel() {
-    //     return UserModel;
-    // }
-    //
-    // function findUserById(userId) {
-    //     return UserModel.findById(userId);
-    // }
-    //
-    // function findUserByCredentials(credentials) {
-    //     return UserModel.findOne(
-    //         {
-    //             username: credentials.username,
-    //             password: credentials.password
-    //         }
-    //     );
-  //  }
+  
 
 
 }

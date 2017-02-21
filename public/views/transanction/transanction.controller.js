@@ -4,15 +4,23 @@
         .module("BankAPP")
         .controller("TransactionCtrl", TransactionCtrl);
 
-    function TransactionCtrl($scope, $location, $rootScope, TransactionService)
+    function TransactionCtrl($scope, $location, $rootScope, TransactionService, UserService)
     {
 
-      function init() {
+$scope.findAllTransactionsByAccNo=findAllTransactionsByAccNo;
+$scope.findAllTransactions=findAllTransactions;
+      function findAllTransactions() {
           TransactionService
               .findAllTransactions()
               .then(handleSuccess, handleError);
       }
-      init();
+      var account=UserService.user;
+      function findAllTransactionsByAccNo(account) {
+          TransactionService
+              .findAllTransactionsByAccNo(account.accountNumber,user)
+              .then(handleSuccess, handleError);
+      }
+      //init();
       function handleSuccess(response) {
           $scope.users = response.data;
       }

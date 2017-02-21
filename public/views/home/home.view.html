@@ -1,7 +1,9 @@
+
+
 <div ng-show="currentUser">
 
   Welcome {{currentUser.username}}
-<div class="container">
+<div  ng-hide="currentUser.roles.indexOf('admin') != -1" class="container">
   <div class="panel panel-primary">
       <div class="panel-heading">Account Summery</div>
       <div class="panel-body">
