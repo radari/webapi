@@ -1,6 +1,6 @@
 
 
-
+<body ng-show="currentUser" ng-init="init(currentUser.accountNumber)>
 
 <input
   ng-model="transaction.toAccount"
@@ -15,6 +15,10 @@
   class="form-control"
   placeholder="Enter Benficiery A/C"/>
   <input
+    ng-model="transaction.amount"
+    class="form-control"
+    placeholder="amount"/>
+  <input
     ng-model="transaction.description"
     class="form-control"
     placeholder="Description"/>
@@ -23,6 +27,7 @@
   ng-click="deposit(transaction)"
   class="btn btn-primary btn-block">
 
-  Debit
+  Credit
 
 </button>
+</body>

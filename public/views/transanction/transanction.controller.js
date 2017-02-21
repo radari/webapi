@@ -14,10 +14,10 @@ $scope.findAllTransactions=findAllTransactions;
               .findAllTransactions()
               .then(handleSuccess, handleError);
       }
-      var account=UserService.user;
-      function findAllTransactionsByAccNo(account) {
+
+      function findAllTransactionsByAccNo(transaction) {
           TransactionService
-              .findAllTransactionsByAccNo(account.accountNumber,user)
+              .findAllTransactionsByAccNo(transaction.toAccount,transaction)
               .then(handleSuccess, handleError);
       }
       //init();

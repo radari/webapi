@@ -9,6 +9,7 @@ module.exports = function() {
             toAccount: String,
             fromAccount: String,
             description: String,
+            amount: Number,
             transfertype: String,
 
         }, {collection: "transaction"});
@@ -38,7 +39,7 @@ module.exports = function() {
     function getMongooseModel() {
         return TransactionModel;
     }
-    function findAllTransactions(accountNumber)
+    function findAllTransactionsByAccNo(accountNumber)
     {
       return TransactionModel.find({toAccount: accountNumber},function(err, transactions) {
         if( err || !transactions) console.log("No transaction users found");
@@ -47,8 +48,12 @@ module.exports = function() {
         } );
       });
     }
+    function findAllTransactions()
+    {
+      return TransactionModel.find();
+    }
 
-  
+
 
 
 }

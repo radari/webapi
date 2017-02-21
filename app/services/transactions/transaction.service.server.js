@@ -66,7 +66,7 @@ function findAllTransactions(req, res) {
 
   function findAllTransactionsByAccNo(req, res) {
       transactionModel
-              .findAllTransactionsByAccNo(accountNumber)
+              .findAllTransactionsByAccNo(toAccount)
               .then(
                   function (transactions) {
                       res.json(transactions);

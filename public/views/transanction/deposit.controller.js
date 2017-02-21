@@ -6,6 +6,9 @@
 
     function DepositCtrl($scope, $location, $rootScope, TransactionService)
     {
+      $scope.init = function(n){
+    $scope.toAccount = n;
+  }
         $scope.deposit = deposit;
 
 console.log("deposit processing")
@@ -17,12 +20,15 @@ console.log("deposit processing")
                 .then(
                     function(response)
                     {
-                        $rootScope.currentUser = response.data;
+                      var fromAccount=response.data;
+                      if(fromAccount != null)
+
                         $location.url("/home");
                     },
                     function(err) {
                         $scope.error = err;
                     }
+
                 );
         }
     }
