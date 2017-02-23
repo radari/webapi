@@ -1,0 +1,32 @@
+
+<button ng-click="show()"
+	class="btn btn-primary btn-block">
+
+	Accounts
+
+</button>
+
+<div style="height:300px;">
+	<div style="height:70px" id="anchor"></div>
+
+	<table class="table .table-condensed table-bordered table-striped">
+    <thead >
+			<tr>
+				<th>Name</th>
+				<th>Balance</th>
+				<th>Type</th>
+				<th>Date Opened</th>
+			</tr>
+		</thead>
+		<tbody>
+		 <tr ng-repeat="account in accounts" style="background-color: #3e606f;;">
+				<td><a href='/accounts/'+{{account._id}}> {{account.name}}</a></td>
+				<td>{{account.balance}})</td>
+				<td>{{account.type}}</td>
+				<td>{{account.dateCreated}}</td>
+			</tr>
+<!-- moment({{account.dateCreated}}).format('MMM Do YYYY') -->
+    </tbody>
+
+  </table>
+</div>

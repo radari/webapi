@@ -1,0 +1,50 @@
+<table>
+					<caption>Transactions</caption>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Date</th>
+							<th>Type</th>
+							<th>Amount</th>
+							<th>Fee</th>
+						</tr>
+					</thead>
+					<tbody>
+            <tbody>
+  						<tr ng-repeat="tr in account.transfers" style="background-color: green;">
+  							<td>{{tr.id}}</td>
+  							<td>moment({{tr.date}}).format('ll')</td>
+  							<td>{{tr.from}}</td>
+  							<td>{{tr.to}}</td>
+  							<td>helper.currencyFormat({{tr.amount}})</td>
+  							<td>{{tr.fee}}</td>
+  						</tr>
+
+            </tbody>
+				</table>
+			</div>
+			<br>
+			<div id="transfers">
+				<table>
+					<caption>Transfers</caption>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Date</th>
+							<th>From</th>
+							<th>To</th>
+							<th>Amount</th>
+							<th>Fee</th>
+						</tr>
+					<tbody>
+						<tr ng-repeat="tr in account.transfers" style="background-color: marroon;">
+              <td>{{tr.id}}</td>
+              <td>moment({{tr.date}}).format('ll')</td>
+              <td>{{tr.from}}</td>
+              <td>{{tr.to}}</td>
+              <td>helper.currencyFormat({{tr.amount}})</td>
+              <td>{{tr.fee}}</td>
+						</tr>
+					</tbody>
+					</thead>
+				</table>
