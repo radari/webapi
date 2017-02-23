@@ -7,9 +7,10 @@
       function LoginCtrl($scope, $location, $rootScope, UserService)
       {
           $scope.login = login;
-
+console.log("login cntrl");
           function login(user)
           {
+            console.log("login successlogin cntrl");
               if(user)
               UserService
                   .login(user)

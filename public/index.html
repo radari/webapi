@@ -16,17 +16,17 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
 
-    <!-- Custom styles for this template -->
-    <link href="jumbotron-narrow.css" rel="stylesheet">
+    <!-- Custom styles for this template
+    <link href="jumbotron-narrow.css" rel="stylesheet">-->
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>-->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,7 +34,10 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+<script src="node_modules/moment/min/moment.min.js"></script>
     <link href="css/style.css" rel="stylesheet"/>
+
     <script src="js/jquery-1.11.2.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/angular.js"></script>
@@ -47,11 +50,15 @@
     <script src="views/profile/profile.controller.js"></script>
     <script src="views/nav/nav.controller.js"></script>
     <script src="views/admin/admin.controller.js"></script>
+    <script src="views/transanction/account.controller.js"></script>
     <script src="views/transanction/withdraw.controller.js"></script>
     <script src="views/transanction/deposit.controller.js"></script>
+    <script src="views/transanction/account.controller.js"></script>
+    <script src="views/transanction/accountslist.controller.js"></script>
     <script src="views/transanction/transanction.controller.js"></script>
     <script src="services/user.services.client.js"></script>
     <script src="services/transaction.services.client.js"></script>
+    <script src="services/account.service.client.js"></script>
   </head>
 
   <body ng-app="BankAPP">
@@ -72,8 +79,11 @@
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation"> <a href="#withdraw">withdraw</a></li>
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href="#transactions">Transactions</a> </li>
 
-                <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#admin">Admin</a>
-                </li>
+
+
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#admin">Admin</a></li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#addAccount">Add Account</a></li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#accounts" ng-click="show()">View Accounts</a></li>
               <li ng-show="currentUser" role="presentation"><a href="#logout" ng-click="logout()">Logout</a></li>
           </ul>
         </nav>

@@ -5,6 +5,7 @@ var mongoose         = require("mongoose");
 module.exports = function(app) {
 
     var transactionModel = require("../../models/transactions/transaction.model.server.js")();
+    console.log(transactionModel);
 
   //  var auth = authorized;
   //  app.post  ('/api/login', passport.authenticate('local'), login);
@@ -22,19 +23,32 @@ module.exports = function(app) {
     }
 
     function withdrawl(req, res) {
-        var withdraw = req.body;
-        console.log(withdraw);
+        var withdrawl = req.body;
+        console.log(" server withdrawl processing")
+  //       currentBalance=user.balance;
+  //       if(typeof(credit.balance)==="number"){
+	// 	currentBalance +=credit.balance ;
+	// }
+	// else{
+	// 	alert("error");
+	// 	console.log("error");
+	// }
       transactionModel
-      .withdrawl(withdraw)
+      .withdrawl(withdrawl)
       .then(
+        function (withdrawl) {
+          console.log("withdraw success")
+            res.json(withdrawl);
+        },
         function(err){
             res.status(400).send(err);
         }
-      )
-  }
+      );
+}
 
     function deposit(req, res) {
         var credit = req.body;
+        console.log(" server deposit processing")
   //       currentBalance=user.balance;
   //       if(typeof(credit.balance)==="number"){
 	// 	currentBalance +=credit.balance ;
@@ -46,10 +60,14 @@ module.exports = function(app) {
       transactionModel
       .deposit(credit)
       .then(
+        function (credit) {
+          console.log("success")
+            res.json(credit);
+        },
         function(err){
             res.status(400).send(err);
         }
-      )
+      );
 }
 
 function findAllTransactions(req, res) {

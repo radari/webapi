@@ -33,6 +33,7 @@ module.exports = function() {
     }
     function deposit(transaction)
     {
+      console.log("model deposit processing")
       return TransactionModel.create(transaction);
     }
 

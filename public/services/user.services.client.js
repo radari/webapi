@@ -46,6 +46,7 @@
         }
 
         function login(user) {
+          console.log("client call");
             return $http.post("/api/login", user);
         }
     }

@@ -22,7 +22,7 @@ $scope.findAllTransactions=findAllTransactions;
       }
       //init();
       function handleSuccess(response) {
-          $scope.users = response.data;
+          $scope.transactions = response.data;
       }
 
       function handleError(error) {

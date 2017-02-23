@@ -1,23 +1,25 @@
-<div class="borderM box padT20">
-	<div><strong> Welcome <span ng-show="currentUser" class="fontBig">{{currentUser.username}}</span> !!</strong>
+<!-- ng-model="account.name"
+ng-model="account.pin"
+ng-model="account.type"
+ng-model="account.balance" -->
+<input
+ng-model="accounts.name"
+class="form-control"
+  placeholder="Senthil Radhaakrishanan"/>
+<input ng-model="accounts.pin"
+  class="form-control"
+  placeholder="1234"/>
+	<select ng-model="accounts.type"   class="form-control"><option ng-value="checking">Checking</option>
+								<option ng-value="savings">Savings</option></select>
+  <input  ng-model="accounts.balance"
+    class="form-control"
+    placeholder="500.00"/>
 
+<button
+  ng-click="createAccount(accounts)"
+  class="btn btn-success btn-block">
 
-	</div> <br>
-	<div ng-hide="noAccount" class="center">Account Number : <strong>{{user.accountNumber}} </strong>,
-	Balance : <strong>{{currentUser.balance}}</strong> ,
-	<div ng-hide="noAccount" class="center">
-		<button ng-class="btnClass1" class="btn btn-lg tab" ng-click="transactions()">Transactions
-		<b ng-show="btnClass1 === 'btn-primary'" id="notch" class="notch"></b>
-		</button>
-		<button ng-class="btnClass2" class="btn btn-lg tab" ng-click="deposit()">Deposit
-		<b ng-show="btnClass2 === 'btn-primary'" id="notch" class="notch"></b>
-		</button>
-		<button ng-class="btnClass3" class="btn btn-lg tab" ng-click="withdrawl()">Withdrawl
-		<b ng-show="btnClass3 === 'btn-primary'" id="notch" class="notch"></b>
-		</button>
+  Create Account
 
-	</div>
-	<div ng-show="accountNo != ''" class="container-fluid mainBox" ui-view>
-	</div>
-
-</div>
+</button>
+</body>

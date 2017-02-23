@@ -47,6 +47,16 @@
                 controller:'DepositCtrl',
                 controllerAs:'model'
               })
+              .when('/addAccount',{
+                templateUrl:'views/transanction/account.view.html',
+                controller:'AccountCtrl',
+                controllerAs:'model'
+              })
+              .when('/accounts',{
+                templateUrl:'views/transanction/accountslist.view.html',
+                controller:'AccountsListCtrl'
+
+              })
               .otherwise({
                   redirectTo: '/home'
               });

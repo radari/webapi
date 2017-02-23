@@ -11,11 +11,11 @@
 
         function withdrawl(transaction)
         {
-            if(transaction)
+          
             TransactionService
                 .withdrawl(transaction)
                 .then(function(transaction){
-                      $location.url("/withdraw");
+                      $location.url("/home");
                     },
                     function(err) {
                         $scope.error = err;

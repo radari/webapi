@@ -20,15 +20,17 @@ console.log("deposit processing")
                 .then(
                     function(response)
                     {
-                      var fromAccount=response.data;
-                      if(fromAccount != null)
-
+                      console.log("responce "+response.data);
+                      var transaction=response.data;
+                      if(transaction != null){
+                        console.log("not empty")
+                      $rootScope.currentUser=transaction;
                         $location.url("/home");
+                      }
                     },
                     function(err) {
                         $scope.error = err;
                     }
-
                 );
         }
     }

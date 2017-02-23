@@ -5,6 +5,7 @@ var mongoose         = require("mongoose");
 module.exports = function(app) {
 
     var userModel = require("../../models/user/user.model.server.js")();
+    console.log(userModel);
 
     var auth = authorized;
     app.post  ('/api/login', passport.authenticate('local'), login);
@@ -12,9 +13,9 @@ module.exports = function(app) {
     app.post  ('/api/register',       register);
     app.post  ('/api/user',     auth, createUser);
     app.get   ('/api/loggedin',       loggedin);
-    app.get   ('/api/user',     auth, findAllUsers);
+    app.get   ('/api/user',      findAllUsers);
     app.put   ('/api/user/:id', auth, updateUser);
-    app.delete('/api/user/:id', auth, deleteUser);
+    app.delete('/api/user/:id',  deleteUser);
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
@@ -51,6 +52,7 @@ function deserializeUser(user, done) {
 }
 
 function login(req, res) {
+  console.log("service call");
     var user = req.user;
     res.json(user);
 }
@@ -118,7 +120,7 @@ function findAllUsers(req, res) {
 }
 
 function deleteUser(req, res) {
-    if(isAdmin(req.user)) {
+
 
         userModel
             .removeUser(req.params.id)
@@ -138,9 +140,7 @@ function deleteUser(req, res) {
                     res.status(400).send(err);
                 }
             );
-    } else {
-        res.status(403);
-    }
+
 }
 
 function updateUser(req, res) {
@@ -177,7 +177,7 @@ function createUser(req, res) {
     if(newUser.roles && newUser.roles.length > 1) {
         newUser.roles = newUser.roles.split(",");
     } else {
-        newUser.roles = ["Customer"];
+        newUser.roles = ["customer"];
     }
 
     // first check if a user already exists with the username
