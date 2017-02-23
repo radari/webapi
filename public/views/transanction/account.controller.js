@@ -18,11 +18,7 @@
 
           function handleSuccess(response) {
             $scope.accounts=response.data;
-            var account=response.data;
-
-                $rootScope.name = name;
-                $scope.accounts=response.data;
-                $location.url("/home");
+            $location.url("/home");
             }
 
           function handleError(error) {
