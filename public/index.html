@@ -77,9 +77,10 @@
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation">  <a href="#profile">Profile</a> </li>
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation"><a href="#deposit">Deposit</a></li>
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation"> <a href="#withdraw">withdraw</a></li>
-              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href="#transactions">Transactions</a> </li>
-
-
+              <!-- <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href="#transaction">Transactions</a></li> -->
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href="#transaction">Transactions</a></li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href="#transfer">Fund Transfer</a></li>
+              <li ng-show="currentUser"  role="presentation" ><a href="#summery">TFT Summary</a></li>
 
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#admin">Admin</a></li>
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#addAccount">Add Account</a></li>

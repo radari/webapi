@@ -38,9 +38,21 @@
                 controller:'WithdrawnCtrl',
                 controllerAs:'model'
               })
+              .when('/transfer',{
+                templateUrl:'views/transanction/fundtransfer.view.html',
+                controller:'TransferCtrl',
+                controllerAs:'model'
+              })
+              .when('/transaction',{
+                templateUrl:'views/transanction/transactions.view.html',
+                controller:'TransactionsCtrl',
+              })
               .when('/transactions',{
                 templateUrl:'views/transanction/transaction.view.html',
                 controller:'TransactionCtrl',
+              })
+              .when('/summery',{
+                templateUrl:'views/transanction/summary.view.html',
               })
               .when('/deposit',{
                 templateUrl:'views/transanction/deposit.view.html',
