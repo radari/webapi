@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var async = require('async');
-//var Transfer = require('./transfer');
+var Transfer = require('./transfers.model.server.js');
 var Mongo = require('mongodb');
 var mongoose = require('mongoose');
 module.exports = function() {
@@ -55,7 +55,9 @@ var api = {
   // findUserByUsername: findUserByUsername,
   // findUserById: findUserById,
     create: create,
-    findAll: findAll
+    findAll: findAll,
+    transaction:transaction,
+    findByIdLite:findByIdLite
 };
 return api;
 function create(account){
@@ -82,65 +84,66 @@ function findAll(){
 //   });
 // };
 //
-// Account.findByIdLite = function(id, cb){
-//   id = makeOid(id);
-//   Account.collection.findOne({_id:id}, {fields:{name:1, type:1}}, function(err, account){
-//     cb(account);
-//   });
-// };
-// Account.deposit = function(obj, cb){
-//   var id = makeOid(obj.id);
-//   var query = {_id:id};
-//   var fields = {fields:{balance:1, pin:1, numTract:1}};
-//   var deposit = _.cloneDeep(obj);
-//   deposit.amount *= 1;
-//   Account.collection.findOne(query, fields, function(err, a){
-//     if(obj.pin === a.pin){
-//       a.balance += deposit.amount;
-//       deposit.id = a.numTract + 1;
-//       deposit.fee = '';
-//       deposit.date = new Date();
-//       delete deposit.pin;
-//       Account.collection.update(query, {$set:{balance:a.balance}, $inc:{numTract:1}, $push:{transactions:deposit}}, function(){
-//         if(cb){cb();}
-//       });
-//     }else{
-//       if(cb){cb();}
-//     }
-//   });
-// };
-//
-// Account.withdraw = function(obj, cb){
-//   var id = makeOid(obj.id);
-//   var query = {_id:id}, fields = {fields:{balance:1, pin:1, numTract:1}};
-//   var withdraw = _.cloneDeep(obj);
-//   withdraw.amount *= 1;
-//   Account.collection.findOne(query, fields, function(err, a){
-//     console.log(err, a, withdraw);
-//     if(obj.pin === a.pin){
-//       a.balance -= withdraw.amount;
-//       a.balance -= (a.balance < 0) ? 50 : 0;
-//       withdraw.id = a.numTract + 1;
-//       withdraw.fee = (a.balance < 0) ? 50 : '';
-//       withdraw.date = new Date();
-//       delete withdraw.pin;
-//       console.log(withdraw);
-//       Account.collection.update(query, {$set:{balance:a.balance}, $inc:{numTract:1}, $push:{transactions:withdraw}}, function(){
-//         if(cb){cb();}
-//       });
-//     }else{
-//       if(cb){cb();}
-//     }
-//   });
-// };
-//
-// Account.transaction = function(obj, cb){
-//   if(obj.type === 'deposit'){
-//     Account.deposit(obj, cb);
-//   }else{
-//     Account.withdraw(obj, cb);
-//   }
-// };
+function findByIdLite(id, cb){
+  id = makeOid(id);
+   return AccountSchema.findOne({_id:id}, {fields:{name:1, type:1}}, function(err, account){
+    cb(account);
+  });
+};
+function deposit(obj, cb){
+  var id = makeOid(obj.id);
+  var query = {_id:id};
+  var fields = {fields:{balance:1, pin:1, numTract:1}};
+  var deposit = _.cloneDeep(obj);
+  deposit.amount *= 1;
+  AccountSchema.findOne(query, fields, function(err, a){
+    if(obj.pin === a.pin){
+      a.balance += deposit.amount;
+      deposit.id = a.numTract + 1;
+      deposit.fee = '';
+      deposit.date = new Date();
+      delete deposit.pin;
+      Account.collection.update(query, {$set:{balance:a.balance}, $inc:{numTract:1}, $push:{transactions:deposit}}, function(){
+        if(cb){cb();}
+      });
+    }else{
+      if(cb){cb();}
+    }
+  });
+};
+
+function withdraw(obj, cb){
+  var id = makeOid(obj.id);
+  var query = {_id:id}, fields = {fields:{balance:1, pin:1, numTract:1}};
+  var withdraw = _.cloneDeep(obj);
+  withdraw.amount *= 1;
+  AccountSchema.findOne(query, fields, function(err, a){
+    console.log(err, a, withdraw);
+    if(obj.pin === a.pin){
+      a.balance -= withdraw.amount;
+      a.balance -= (a.balance < 0) ? 50 : 0;
+      withdraw.id = a.numTract + 1;
+      withdraw.fee = (a.balance < 0) ? 50 : '';
+      withdraw.date = new Date();
+      delete withdraw.pin;
+      console.log(withdraw);
+      AccountSchema.update(query, {$set:{balance:a.balance}, $inc:{numTract:1}, $push:{transactions:withdraw}}, function(){
+        if(cb){cb();}
+      });
+    }else{
+      console.log('pin does not matced')
+      if(cb){cb();}
+    }
+  });
+};
+
+function transaction(obj, cb){
+  if(obj.type === 'deposit'){
+    return AccountSchema.deposit(obj, cb);
+  }else{
+    return AccountSchema.withdraw(obj, cb);
+  }
+};
 //
 // Account.transfer = function(obj, cb){
 //   obj.fromId = makeOid(obj.fromId);
@@ -170,9 +173,9 @@ function findAll(){
 
 // PRIVATE HELPER FUNCTION
 
-// function makeOid(id){
-//   return (typeof id === 'string') ? Mongo.ObjectID(id) : id;
-// }
+function makeOid(id){
+  return (typeof id === 'string') ? Mongo.ObjectID(id) : id;
+}
 // function makeTransfer(tId, cb, name){
 //   Transfer.findById(tId, function(err, transfer){
 //     if(transfer.from === name){

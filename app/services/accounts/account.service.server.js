@@ -11,7 +11,12 @@ module.exports = function(app) {
   //  app.get('/api/accounts/'+_id +'/transfer', transfer);
     app.get('api/accounts/transfer', transferInit);
   app.put('api/accounts/transfer', transfer);
-
+  // function transactionInit(accounts)
+  // {
+  //   console.log(deposit/vithdraw call);
+  //  $http.get('/api/accounts/transactionInit', accounts)
+  app.get('/accounts/transactionInit', transactionInit);
+    app.put('/accounts/transaction', transaction);
     // exports.create = function(req, res){
     //   Account.create(req.body, function(){
     //     res.redirect('/accounts');
@@ -97,6 +102,29 @@ console.log("serverside account creation call");
               );
               }
 
+              //Transactions
+              function transactionInit(req, res){
+                AccountModel.findByIdLite(req.params.id, account).then(function(account)
+              {
+                  res.json(account);
+              },
+            function()  {
+                  res.status(400).send(err);
+                })
+              }
+              function transaction(req, res){
+                req.body.id = req.params.id;
+                AccountModel.transaction(req.body).then(function(){
+                  res.json(req.params.id);
+                },
+                function(){
+                  res.status(200).send(req.params.id);
+                });
+              }
+
+
+
+
 function findAll(req, res) {
   console.log("service server log");
         AccountModel
@@ -117,7 +145,7 @@ function findAll(req, res) {
     return accounts[index].name;
   };
 
-  tOptions  function(accounts, id){
+  function tOptions  (accounts, id){
     var index = accounts.map(function(o){return o._id.toString();}).indexOf(id);
     accounts.splice(index, 1);
     var options = accounts.map(function(a){return '<option value="' + a._id.toString() + '">' + a.name + '</option>';});

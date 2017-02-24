@@ -4,22 +4,36 @@
         .module("BankAPP")
         .controller("TransactionsCtrl", TransactionsCtrl);
 
-    function TransferCtrl($scope, $location, $rootScope, AccountService)
+    function TransactionsCtrl($scope, $location, $rootScope, AccountService)
     {
-        $scope.transactions = transactions;
+        $scope.transactionInit = transactionInit;
+          $scope.transaction = transaction;
+
         //$scope.findAllAccounts = findAllAccounts;
     //    $scope.remove=remove;
-        function transactions(accounts){
+        function transactionInit(accounts){
           AccountService
-                    .transactions(accounts)
-                    .then(handleSuccess, handleError);
-          }
-          function handleSuccess(response) {
-            $scope.transfers=response.data;
+                    .transactionInit(accounts)
+                    .then(function(accounts) {
+            $scope.transaction=response.data;
                 $location.url("/home");
-          }
-          function handleError(error) {
+          },
+          function(err) {
               $scope.error = error;
-          }
+          });
+        }
+
+
+          function transaction(accounts){
+            AccountService
+                      .transactionInit(accounts)
+                      .then(function(response) {
+              $scope.transactions=response.data;
+                  $location.url("/home");
+            },
+            function(err) {
+                $scope.error = error;
+            });
+
     }
 })();
