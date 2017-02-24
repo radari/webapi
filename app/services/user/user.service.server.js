@@ -219,6 +219,7 @@ function createUser(req, res) {
 
 function isAdmin(user) {
     if(user.roles.indexOf("admin") > 0) {
+      console.log(user.roles.indexOf("admin"));
         return true
     }
     return false;

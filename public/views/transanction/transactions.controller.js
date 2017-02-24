@@ -14,26 +14,27 @@
         function transactionInit(accounts){
           AccountService
                     .transactionInit(accounts)
-                    .then(function(accounts) {
-            $scope.transaction=response.data;
-                $location.url("/home");
-          },
-          function(err) {
-              $scope.error = error;
-          });
+                    .then(function(accounts){
+                      $scope.transaction=response.data;
+                      $location.url("/home");
+                    },
+                    function(err) {
+                      $scope.error = err;
+                    }
+                  );
         }
 
 
           function transaction(accounts){
             AccountService
-                      .transactionInit(accounts)
-                      .then(function(response) {
-              $scope.transactions=response.data;
-                  $location.url("/home");
-            },
-            function(err) {
-                $scope.error = error;
-            });
-
+                      .transaction(accounts)
+                      .then(function(accounts) {
+                        $scope.dw=response.data;
+                        $location.url("/home");
+                      },
+                      function(err) {
+                        $scope.error = err;
+                      });
+          }
     }
 })();

@@ -7,7 +7,7 @@
         var api = {
             create: create,
             findAll: findAll,
-            transferInit:transferInit,
+            //transferInit:transferInit,
             transfer: transfer,
             transactionInit:transactionInit,
             transaction:transaction
@@ -18,13 +18,13 @@
 function transactionInit(accounts)
 {
   console.log('deposit/vithdraw init call');
-  $http.get('/api/accounts/transactionInit', accounts)
+  return  $http.get('/api/accounts/transactionInit/', accounts);
 }
 
 function transaction(accounts)
 {
   console.log('deposit/vithdraw call');
-  $http.put('/api/accounts/transaction', accounts)
+  return $http.put('/api/accounts/transaction/', accounts);
 }
 
         function create(accounts) {
