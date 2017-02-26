@@ -1,6 +1,7 @@
 var passport         = require('passport');
 var LocalStrategy    = require('passport-local').Strategy;
-var mongoose         = require("mongoose");
+//var mongoose         = require("mongoose");
+var Mongo      = require("mongodb");
 
 module.exports = function(app) {
 
@@ -219,7 +220,6 @@ function createUser(req, res) {
 
 function isAdmin(user) {
     if(user.roles.indexOf("admin") > 0) {
-      console.log(user.roles.indexOf("admin"));
         return true
     }
     return false;

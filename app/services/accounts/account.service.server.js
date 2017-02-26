@@ -1,6 +1,8 @@
-
+//var passport         = require('passport');
+//var LocalStrategy    = require('passport-local').Strategy;
 var moment = require('moment');
-var mongoose         = require("mongoose");
+//var mongoose         = require("mongoose");
+var Mongo      = require("mongodb");
 
 
 module.exports = function(app) {
@@ -11,14 +13,19 @@ module.exports = function(app) {
   //  app.get('/api/accounts/'+_id +'/transfer', transfer);
     app.get('api/accounts/transfer', transferInit);
   app.put('api/accounts/transfer', transfer);
-
+//app.post  ('/api/login', passport.authenticate('local'), login);
   app.get('/api/accounts/transactionInit', transactionInit);
     app.put('/api/accounts/transaction', transaction);
+
+
+
+
+
 
 function create(req, res) {
     var newAccount = req.body;
 console.log("serverside account creation call");
-     AccountModel.create(newAccount)
+     AccountModel.Account(newAccount)
           .then(
               // fetch all the accounts
                 function(){

@@ -6,6 +6,7 @@
     function AccountService($http) {
         var api = {
             create: create,
+
             findAll: findAll,
             //transferInit:transferInit,
             transfer: transfer,
@@ -13,8 +14,6 @@
             transaction:transaction
         };
         return api;
-
-
 function transactionInit(accounts)
 {
   console.log('deposit/vithdraw init call');
