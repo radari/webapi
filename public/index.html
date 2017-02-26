@@ -70,23 +70,23 @@
         <nav ng-controller="NavCtrl">
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="#home">Home</a></li>
-            <li ng-show="!currentUser" role="presentation"><a href="#">About</a></li>
-            <li ng-show="!currentUser" role="presentation"><a href="#">Contact</a></li>
+            <li role="presentation"><a href="#">About</a></li>
+            <li role="presentation"><a href="#">Contact</a></li>
           <li ng-show="!currentUser" role="presentation"><a href="#login">Login</a></li>
             <li ng-show="!currentUser" role="presentation"><a href="#register">Register</a></li>
 
 
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation">  <a href="#profile">Profile</a> </li>
-              <!-- <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation"><a href="#deposit">Deposit</a></li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation"><a href="#deposit">Deposit</a></li>
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation"> <a href="#withdraw">withdraw</a></li>
-              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href ng-click="transaction">Transactions</a></li> -->
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href ng-click="transaction">Transactions</a></li>
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href="#transaction">Transactions</a></li>
               <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('customer') == -1" role="presentation" ><a href="#transfer" ng-click="transferInit()">Fund Transfer</button></li>
-              <li ng-show="currentUser"  role="presentation" ><a href="#summery">Transaction Summary</a></li>
+              <li ng-show="currentUser"  role="presentation" ><a href="#summery">TFT Summary</a></li>
 
-              <li ng-hide="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#admin">Admin</a></li>
-              <li ng-hide="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#addAccount">Add Account</a></li>
-              <li ng-hide="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#accounts" ng-click="show()">View Accounts</a></li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#admin">Admin</a></li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#addAccount">Add Account</a></li>
+              <li ng-show="currentUser" ng-show="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#accounts" ng-click="show()">View Accounts</a></li>
               <li ng-show="currentUser" role="presentation"><a href="#logout" ng-click="logout()">Logout</a></li>
           </ul>
         </nav>
@@ -127,6 +127,7 @@
     </div> <!-- /container -->
 
 
-
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

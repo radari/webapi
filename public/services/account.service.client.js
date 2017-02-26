@@ -6,24 +6,25 @@
     function AccountService($http) {
         var api = {
             create: create,
-
             findAll: findAll,
-            //transferInit:transferInit,
+            transferInit:transferInit,
             transfer: transfer,
             transactionInit:transactionInit,
             transaction:transaction
         };
         return api;
+
+
 function transactionInit(accounts)
 {
   console.log('deposit/vithdraw init call');
-  return  $http.get('/api/accounts/transactionInit/', accounts);
+  $http.get('/api/accounts/transactionInit', accounts)
 }
 
 function transaction(accounts)
 {
   console.log('deposit/vithdraw call');
-  return $http.put('/api/accounts/transaction/', accounts);
+  $http.put('/api/accounts/transaction', accounts)
 }
 
         function create(accounts) {

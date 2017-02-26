@@ -1,7 +1,6 @@
 var passport         = require('passport');
 var LocalStrategy    = require('passport-local').Strategy;
-//var mongoose         = require("mongoose");
-var Mongo      = require("mongodb");
+var mongoose         = require("mongoose");
 
 module.exports = function(app) {
 

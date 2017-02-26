@@ -1,37 +1,60 @@
 var mongoose      = require("mongoose");
 var Schema = mongoose.Schema;
 
-'use strict';
+module.exports = function() {
 
-var Mongo = require('mongodb');
+    var TransactionSchema = new Schema(
+        {
+            userId:{type: Schema.Types.ObjectId, ref:'user'},
+            toAccount: String,
+            fromAccount: String,
+            description: String,
+            amount: Number,
+            transfertype: String,
 
-var TransactionSchema  = new mongoose.Schema( {
- //id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  accountId :{ type: Schema.Types.ObjectId, ref:'accounts' },
-  date :{type:Date, default:Date.now} ,
-  type :String,
-  amount:Number,
-pin: Number }
-  , {collection: "transactions"});
-  var Transaction = mongoose.model('Transaction', TransactionSchema);
+        }, {collection: "transaction"});
 
-// Object.defineProperty(Transaction, 'collection', {
-//   get: function(){
-//     return global.mongodb.collection('transactions');
-//   }
-// });
+    var TransactionModel = mongoose.model('TransactionModel', TransactionSchema);
 
-Transaction.create = function(o, cb) {
-  var transaction = new Transaction(o);
-  Transaction.collection.save(transaction, function(){
-    cb(transaction);
-  });
-};
+    var api = {
+      // findUserByCredentials: findUserByCredentials,
+      // findUserByUsername: findUserByUsername,
+      // findUserById: findUserById,
+        withdrawl: withdrawl,
+        deposit: deposit,
+        findAllTransactions: findAllTransactions,
+        getMongooseModel: getMongooseModel
+    };
+    return api;
 
-Transaction.findByAccountId = function(accountId, cb) {
-  Transaction.collection.find({
-    accountId: Mongo.ObjectID(accountId)
-  }).toArray(cb);
-};
+    function withdrawl(transaction)
+    {
+      return TransactionModel.create(transaction);
+    }
+    function deposit(transaction)
+    {
+      console.log("model deposit processing")
+      return TransactionModel.create(transaction);
+    }
 
-module.exports = Transaction;
+    function getMongooseModel() {
+        return TransactionModel;
+    }
+    function findAllTransactionsByAccNo(accountNumber)
+    {
+      return TransactionModel.find({toAccount: accountNumber},function(err, transactions) {
+        if( err || !transactions) console.log("No transaction users found");
+        else TransactionModel.forEach( function(listtransaction) {
+          console.log(listtransaction);
+        } );
+      });
+    }
+    function findAllTransactions()
+    {
+      return TransactionModel.find();
+    }
+
+
+
+
+}

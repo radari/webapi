@@ -2,159 +2,122 @@
 
 var _ = require('lodash');
 var async = require('async');
-//var Transfer = require('./transfers.model.server.js');
+var Transfer = require('./transfers.model.server.js');
 var Mongo = require('mongodb');
-//var mongoose = require('mongoose'), Schema=mongoose.Schema, construct=require('mongoose-construct')
-
-Object.defineProperty(Account, 'collection', {
-  get: function(){return global.mongodb.collection('accounts');}
-});
-
-function Account(o){
-  this.name = o.name;
-  this.dateCreated = new Date();
-
-  this.type = o.type;
-  this.pin = o.pin;
-  this.balance = o.deposit * 1;
-  this.numTract = 0;
-  this.transactions = [];
-  this.xferIds = [];
-}
-module.exports=Account;
+var mongoose = require('mongoose');
 module.exports = function() {
-// var AccountSchema = new Schema(
-//     {
-//         name: {type:String, default:'default'},
-//         dateCreated: {type: Date, default: Date.now },
-//         type:{type:String, default:'default'} ,
-//         pin: {type:Number, default:6341},
-//         balance:{type:Number, default:0} ,
-//         numTract:{type:Number, default:0},
-//         transactions: [],
-//         xferIds:[]
+var Account = new mongoose.Schema(
+    {
+        name: String,
+        dateCreated: {type: Date, default: Date.now },
+        type: String,
+        pin: Number,
+        balance: Number,
+        transfertype: String,
+        numTract: Number,
+        transactions: [],
+        xferIds:[]
+
+    }, {collection: "accounts"});
+   var AccountSchema = mongoose.model('AccountSchema', Account);
+// Object.defineProperty(Account, 'collection', {
+//   get: function(){return global.mongodb.collection('accounts');}
+// });
+
+// function Account(o){
+//   this.name = o.name;
+//   this.dateCreated = new Date();
+//   this.color = o.color;
+//   this.photo = o.photo;
+//   this.type = o.type;
+//   this.pin = o.pin;
+//   this.balance = o.deposit * 1;
+//   this.numTract = 0;
+//   this.transactions = [];
+//   this.xferIds = [];
+// }
+
+// Account.create = function(o, cb){
+//   var a = new Account(o);
+//   Account.collection.save(function(cb){ throw cb;});
+// };
 //
-//     }, {collection: "accounts"});
-//     AccountSchema.plugin(construct);
-//
-//     AccountSchema.pre('construct',function(next){
-//       console.log("costructor called");
-//       next();
-//
-//     });
-//  mongoose.model('Account', AccountSchema );
-
- // AccountSchema.schema.createInstance = function (name, dateCreated,
- //   type,pin,balance,numTract,transactions,xferIds) {
- //  var Account = mongoose.model('Account');
- //  return new Account({
- //   name: name,
- //   dateCreated: dateCreated,
- //   type: type,
- //   pin: pin,
- //   balance:balance,
- //   numTract:numTract,
- //   transactions:transactions,
- //   xferIds:xferIds
- //  });
- // };
-
-//  var Account=mongoose.model('Account', AccountSchema);
-//  var a=new Account();
-// console.log("before");
-//  console.log(a);
-//  console.log("after");
-
-
-  //  function Accounts(o){
-  //    this.name = o.name;
-  //    this.dateCreated = new Date();
-  //    this.type = o.type;
-  //    this.pin = o.pin;
-  //    this.balance = o.deposit * 1;
-  //    this.numTract = 0;
-  //    this.transactions = [];
-  //    this.xferIds = [];
-  //  }
+// Account.findAll = function(cb){
+//   Account.collection.find({}, {sort:{name:1}, fields:{name:1, color:1, balance:1, type:1, opened:1}}).toArray(function(err, accounts){
+//     cb(err, accounts);
+//   });
+// };
 
 
 
 var api = {
-
-    Account: Account,
+  // findUserByCredentials: findUserByCredentials,
+  // findUserByUsername: findUserByUsername,
+  // findUserById: findUserById,
+    create: create,
     findAll: findAll,
     transaction:transaction,
     findByIdLite:findByIdLite
 };
 return api;
-function Account(o,cb){
-  console.log(o);
-  console.log("test run");
-  var a = new Account(o);
-  console.log("run test")
-  console.log(a);
+function create(account){
+    console.log('account creation db call');
+  return AccountSchema.create(account);
 
-  Account.save(a, cb);
- // var a = new Account(account);
- //  console.log("test+++");
- //  console.log(Account)
- //  console.log(a);
- //    console.log('account creation db call');
- //  return Account.create(a,cb);
-
-
+  // var a = new Account(o);
+  // Account.collection.save(a, cb);
 }
-
-
 
 function findAll(){
   console.log("db call");
-  return Account.collection.find();
+  return AccountSchema.find();
 }
-
+//
+// Account.findById = function(id, cb){
+//   id = makeOid(id);
+//   Account.collection.findOne({_id:id}, function(err, account){
+//     async.map(account.xferIds, function(tId, done){
+//       makeTransfer(tId, done, account.name);}, function(err, transfers){
+//         account.transfers = transfers;
+//         cb(account);
+//       });
+//   });
+// };
+//
 function findByIdLite(id, cb){
   id = makeOid(id);
-   return Account.collection.findOne({_id:id}, {fields:{name:1, type:1}}, function(err, account){
+   return AccountSchema.findOne({_id:id}, {fields:{name:1, type:1}}, function(err, account){
     cb(account);
   });
-}
+};
 function deposit(obj, cb){
-
-  console.log("inside deposit");
-  console.log(obj);
   var id = makeOid(obj.id);
-  console.log(id);
   var query = {_id:id};
-
   var fields = {fields:{balance:1, pin:1, numTract:1}};
   var deposit = _.cloneDeep(obj);
-  console.log(deposit);
   deposit.amount *= 1;
-
-  return Account.findOne(query, fields, function(err,a){
-  //  console.log(a +"   aaaa" );
+  AccountSchema.findOne(query, fields, function(err, a){
     if(obj.pin === a.pin){
       a.balance += deposit.amount;
       deposit.id = a.numTract + 1;
       deposit.fee = '';
       deposit.date = new Date();
       delete deposit.pin;
-    Account.collection.update(query,
-       {$set:{balance:a.balance}, $inc:{numTract:1}, $push:{transactions:deposit}}, function(){
+      Account.collection.update(query, {$set:{balance:a.balance}, $inc:{numTract:1}, $push:{transactions:deposit}}, function(){
         if(cb){cb();}
       });
     }else{
       if(cb){cb();}
     }
   });
-}
+};
 
 function withdraw(obj, cb){
   var id = makeOid(obj.id);
   var query = {_id:id}, fields = {fields:{balance:1, pin:1, numTract:1}};
   var withdraw = _.cloneDeep(obj);
   withdraw.amount *= 1;
-  Account.collection.findOne(query, fields, function(err, a){
+  AccountSchema.findOne(query, fields, function(err, a){
     console.log(err, a, withdraw);
     if(obj.pin === a.pin){
       a.balance -= withdraw.amount;
@@ -164,7 +127,7 @@ function withdraw(obj, cb){
       withdraw.date = new Date();
       delete withdraw.pin;
       console.log(withdraw);
-      Account.collection.update(query, {$set:{balance:a.balance}, $inc:{numTract:1}, $push:{transactions:withdraw}}, function(){
+      AccountSchema.update(query, {$set:{balance:a.balance}, $inc:{numTract:1}, $push:{transactions:withdraw}}, function(){
         if(cb){cb();}
       });
     }else{
@@ -172,22 +135,46 @@ function withdraw(obj, cb){
       if(cb){cb();}
     }
   });
-}
+};
 
 function transaction(obj, cb){
   if(obj.type === 'deposit'){
-    return deposit(obj, cb);
+    return AccountSchema.deposit(obj, cb);
   }else{
-    return withdraw(obj, cb);
+    return AccountSchema.withdraw(obj, cb);
   }
-}
+};
+//
+// Account.transfer = function(obj, cb){
+//   obj.fromId = makeOid(obj.fromId);
+//   obj.toId = makeOid(obj.toId);
+//   obj.amount *= 1;
+//   var total = obj.amount + 25;
+//   Account.collection.findOne({_id:obj.fromId}, {fields:{balance:1, pin:1}}, function(err, a){
+//     if(obj.pin === a.pin && a.balance >= total){
+//       a.balance -= total;
+//       Account.collection.findOne({_id:obj.toId}, {fields:{name:1}}, function(err, acct){
+//         obj.to = acct.name;
+//         Transfer.save(obj, function(err, t){
+//           Account.collection.update({_id:a._id}, {$set:{balance:a.balance}, $push:{xferIds:t._id}}, function(){
+//             Account.collection.update({_id:obj.toId}, {$inc:{balance:obj.amount}, $push:{xferIds:t._id}}, function(){
+//               if(cb){cb();}
+//             });
+//           });
+//         });
+//       });
+//     }else{
+//       if(cb){cb();}
+//     }
+//   });
+// };
 
-}
+//module.exports = Account;
+
 // PRIVATE HELPER FUNCTION
 
 function makeOid(id){
-  console.log(id);
-  return (typeof id === 'string') ? mongoose.Schema.Types.ObjectId(id) : id;
+  return (typeof id === 'string') ? Mongo.ObjectID(id) : id;
 }
 // function makeTransfer(tId, cb, name){
 //   Transfer.findById(tId, function(err, transfer){
@@ -200,3 +187,4 @@ function makeOid(id){
 //     cb(null, transfer);
 //   });
 // }
+}

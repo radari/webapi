@@ -1,9 +1,6 @@
-
-wel come {{currentUser.username}} UID:{{currentUser._id}} <input type="hidden" ng-model="transactions._method" value="put">
-<input type="number" ng-model="transactions.uid" ng-change={{currentUser._id}}  readonly="enable">
-<label class="radio-inline">Deposit<input type="radio" ng-model="transactions.type" value="deposit" ></label>
-<label class="radio-inline">Withdrawl<input type="radio" ng-model="transactions.type" value="withdraw" ></label>
-<br>
-  PIN:<input class="form-control" type="text" ng-model="transactions.pin" placeholder="Authetnication, Ex: 1234">
-  Amount:<input class="form-control"  type="number" ng-model="transactions.amount" placeholder="100.00">
-  <button class="btn btn-success btn-block"  ng-click="transaction(transactions)">Submit Transaction</button>
+<input type="hidden" name="_method" value="put">
+ <div class="form-inline"><label class="radio"><input class="form-control" form-control-sm type="radio" name="type" value="deposit">	Deposit</label>
+	<label class="radio">	<input class="form-control iradio-inline input-sm" type="radio" name="type" value="withdraw">	Withdrawal	</label></div>
+  PIN:<input class="form-control" type="text" name="pin" placeholder="Authetnication example: 1234">
+  Amount:<input class="form-control radio-inline"  type="number" name="amount" placeholder="100.00">
+  <button class="btn btn-success btn-block"  ng-click="transaction()">Submit Transaction</button>
