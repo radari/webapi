@@ -15,7 +15,8 @@
           AccountService
                     .transactionInit(accounts)
                     .then(function(accounts){
-                      $scope.transaction=response.data;
+                      $scope.transaction=accounts.data;
+                      console.log(transaction);
                       $location.url("/home");
                     },
                     function(err) {
@@ -29,7 +30,8 @@
             AccountService
                       .transaction(accounts)
                       .then(function(accounts) {
-                        $scope.dw=response.data;
+                        $scope.dw=accounts.data;
+                        console.log($scope.dw);
                         $location.url("/home");
                       },
                       function(err) {

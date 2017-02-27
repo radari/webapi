@@ -2,6 +2,20 @@
 ng-model="account.pin"
 ng-model="account.type"
 ng-model="account.balance" -->
+<!-- select#author.form-control(type='select', placeholder='Select author' name='author' required='true' )
+      for author in authors
+        if book
+          option(value=author._id selected=(author._id.toString()==book.author._id.toString() ? 'selected' : false) ) #{author.name}
+        else
+          option(value=author._id) #{author.name} -->
+
+          <!-- <select ng-options="item as item.label for item in items track by item.id" ng-model="selected"></select> -->
+<select  class="form-control" ng-model="accounts.uid" ng-options="item._id for item in users">
+        <!-- <option value=''>Select User Id</option>
+        <option ng-repeat="user in users" value={{item._id}}>{{item._id}}</option> -->
+        </select>
+        <!-- <select ng-model="selectedName" ng-options="item for item in users">
+        </select> --> 
 <input
 ng-model="accounts.name"
 class="form-control"
@@ -9,7 +23,7 @@ class="form-control"
 <input ng-model="accounts.pin"
   class="form-control"
   placeholder="1234"/>
-	<select ng-model="accounts.type"   class="form-control"><option ng-value="checking">Checking</option>
+	<select ng-model="accounts.type"   class="form-control"><option ng-value="current">Current</option>
 								<option ng-value="savings">Savings</option></select>
   <input  ng-model="accounts.balance"
     class="form-control"

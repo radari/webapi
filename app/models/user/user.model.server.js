@@ -1,31 +1,20 @@
-var Mongo      = require("mongodb");
-
-var User = function(u) {
-  this.username= u.username;
-  this.password= u.password;
-  this.firstName= u.firstName;
-  this.lastName= u.lastName;
-  this.email= u.email;
-  this.accountNumber= u.accountNumber;
-  this.balance = u.balance * 1;
-  this.roles= [];
-};
-
-Object.defineProperty(User, 'collection', {
-  get: function(){
-    return global.mongodb.collection('user');
-  }
-});
-
+var mongoose      = require("mongoose");
 
 module.exports = function() {
 
-    // var UserSchema = new mongoose.Schema(
-    //     {
-    //
-    //     }, {collection: "user"});
-    //
-    // var User = mongoose.model('User', UserSchema);
+    var UserSchema = new mongoose.Schema(
+        {
+
+            username: String,
+            password: String,
+            firstName: String,
+            lastName: String,
+            email: String,
+
+            roles: [String]
+        }, {collection: "user"});
+
+    var user = mongoose.model('user', UserSchema);
 
     var api = {
          findUserByCredentials: findUserByCredentials,
@@ -34,45 +23,41 @@ module.exports = function() {
          findAllUsers: findAllUsers,
          createUser: createUser,
          removeUser: removeUser,
-         updateUser: updateUser //,
-        // getMongooseModel: getMongooseModel
+         updateUser: updateUser,
+         getMongooseModel: getMongooseModel
      };
      return api;
 
      function updateUser(userId, user) {
-         return User.collection.update({_id: userId}, {$set: user});
+         return user.update({_id: userId}, {$set: user});
      }
 
      function removeUser(userId) {
-         return User.collection.remove({_id: userId});
+         return user.remove({_id: userId});
      }
 
      function findAllUsers() {
-         return User.collection.find();
+       console.log("list users from dbs");
+         return user.find();
      }
      function createUser(user) {
-         return User.collection.create(user);
+         return user.create(user);
      }
 
-     function findUserByUsername(username,cb) {
-       console.log("byuser");
-         return User.collection.findOne({username: username}, function(){
-             if(cb){
-               cb();
-             }
-           });
+     function findUserByUsername(username) {
+         return user.findOne({username: username});
      }
 
-    //  function getMongooseModel() {
-    //      return User;
-    //  }
+     function getMongooseModel() {
+         return user;
+     }
 
      function findUserById(userId) {
-         return User.collection.findById(userId);
+         return user.findById(userId);
      }
 
      function findUserByCredentials(credentials) {
-         return User.collection.findOne(
+         return user.findOne(
              {
                  username: credentials.username,
                  password: credentials.password

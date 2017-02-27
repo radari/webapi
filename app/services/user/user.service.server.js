@@ -1,7 +1,7 @@
 var passport         = require('passport');
 var LocalStrategy    = require('passport-local').Strategy;
-//var mongoose         = require("mongoose");
-var Mongo      = require("mongodb");
+var mongoose         = require("mongoose");
+//var Mongo      = require("mongodb");
 
 module.exports = function(app) {
 
@@ -104,6 +104,7 @@ function register(req, res) {
 }
 
 function findAllUsers(req, res) {
+  console.log("list users from service server");
     if(isAdmin(req.user)) {
         userModel
             .findAllUsers()

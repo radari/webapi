@@ -38,6 +38,7 @@
         }
 
         function findAllUsers() {
+          console.log("list user");
             return $http.get("/api/user");
         }
 

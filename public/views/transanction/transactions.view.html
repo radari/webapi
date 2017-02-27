@@ -1,6 +1,6 @@
 
 wel come {{currentUser.username}} UID:{{currentUser._id}} <input type="hidden" ng-model="transactions._method" value="put">
-<input type="number" ng-model="transactions.uid" ng-change={{currentUser._id}}  readonly="enable">
+<input type="number" ng-model="transactions.uid" name=_id  readonly="enable">
 <label class="radio-inline">Deposit<input type="radio" ng-model="transactions.type" value="deposit" ></label>
 <label class="radio-inline">Withdrawl<input type="radio" ng-model="transactions.type" value="withdraw" ></label>
 <br>

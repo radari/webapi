@@ -3,29 +3,50 @@
 var moment = require('moment');
 //var mongoose         = require("mongoose");
 var Mongo      = require("mongodb");
-
+var async = require('async')
+var userModel = require("../../models/user/user.model.server.js");
 
 module.exports = function(app) {
   var AccountModel = require("../../models/transactions/account.model.server.js")();
+
+
+  var auth = authorized;
     console.log(AccountModel);
-    app.post  ('/api/accounts', create);
-    app.get('/api/accounts', findAll);
+    app.get('/api/addAccount',auth, account_create_get)
+    app.post  ('/api/accounts', auth, create);
+    app.get('/api/accounts', auth, findAll);
   //  app.get('/api/accounts/'+_id +'/transfer', transfer);
-    app.get('api/accounts/transfer', transferInit);
-  app.put('api/accounts/transfer', transfer);
+    app.get('api/accounts/transfer', auth, transferInit);
+  app.put('api/accounts/transfer', auth, transfer);
 //app.post  ('/api/login', passport.authenticate('local'), login);
-  app.get('/api/accounts/transactionInit', transactionInit);
-    app.put('/api/accounts/transaction', transaction);
+  app.get('/api/accounts/transactionInit', auth, transactionInit);
+    app.put('/api/accounts/transaction',auth, transaction);
+app.get   ('/api/loggedin',       loggedin);
 
+    function loggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+    function isAdmin(user) {
+        if(user.roles.indexOf("admin") > 0) {
+            return true
+        }
+        return false;
+    }
 
-
-
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    };
 
 
 function create(req, res) {
     var newAccount = req.body;
 console.log("serverside account creation call");
-     AccountModel.Account(newAccount)
+     AccountModel
+     .createAccount(newAccount)
           .then(
               // fetch all the accounts
                 function(){
@@ -49,7 +70,7 @@ console.log("serverside account creation call");
       function transfer(req, res) {
           var transfer = req.body;
       console.log("serverside account creation call");
-           AccountModel.create(newAccount)
+           AccountModel.createAccount(newAccount)
                 .then(
                     // fetch all the accounts
                       function(){
@@ -132,18 +153,19 @@ function findAll(req, res) {
             );
   }
 
- function tFrom(accounts, id){
-    var index = accounts.map(function(o){return o._id.toString();}).indexOf(id);
-    return accounts[index].name;
-  };
+  function account_create_get(req, res, next) {
 
-  function tOptions  (accounts, id){
-    var index = accounts.map(function(o){return o._id.toString();}).indexOf(id);
-    accounts.splice(index, 1);
-    var options = accounts.map(function(a){return '<option value="' + a._id.toString() + '">' + a.name + '</option>';});
-    //console.log(options.join(''));
-    return options.join('');
-  };
+      //Get all users , which we can use for adding to our account.
+      async.parallel({
+          users: function(callback) {
+              userModel.findAll(callback)
+          }
+      }, function(err, results) {
+          if (err) { return next(err); }
+          res.render('account.view', { title: 'Create Account',authors:results.users });
+      });
+
+  }
 
 
 };

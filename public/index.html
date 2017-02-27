@@ -85,7 +85,7 @@
               <li ng-show="currentUser"  role="presentation" ><a href="#summery">Transaction Summary</a></li>
 
               <li ng-hide="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#admin">Admin</a></li>
-              <li ng-hide="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#addAccount">Add Account</a></li>
+              <li ng-hide="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#addAccount" ng-click()="InitAccount()">Add Account</a></li>
               <li ng-hide="currentUser.roles.indexOf('admin') == -1" role="presentation"><a href="#accounts" ng-click="show()">View Accounts</a></li>
               <li ng-show="currentUser" role="presentation"><a href="#logout" ng-click="logout()">Logout</a></li>
           </ul>

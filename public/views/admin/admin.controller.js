@@ -47,7 +47,8 @@
         }
 
         function handleSuccess(response) {
-            $scope.users = response.data;
+            $rootSscope.users = response.data;
+          //  $rootScope.uid=response._id;
         }
 
         function handleError(error) {

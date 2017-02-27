@@ -23,6 +23,7 @@
                             var user = response.data;
                             if(user != null) {
                                 $rootScope.currentUser = user;
+                                $scope.uid=user._id;
                                 $location.url("/profile");
                             }
                         },
