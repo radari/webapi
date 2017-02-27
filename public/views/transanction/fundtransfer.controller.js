@@ -41,6 +41,22 @@
 
 
 
+$scope.tFrom=tFrom;
+          //helper functions
+          function tFrom(accounts, id){
+             var index = accounts.map(function(o){return o._id.toString();}).indexOf(id);
+             return accounts[index].name;
+             console.log(account[index].name);
+           };
+$scope.tOptions=tFrom;
+           function tOptions(accounts, id){
+             var index = accounts.map(function(o){return o._id.toString();}).indexOf(id);
+             accounts.splice(index, 1);
+             var options = accounts.map(function(a){return '<option value="' + a._id.toString() + '">' + a.name + '</option>';});
+             console.log(options.join(''));
+             return options.join('');
 
+
+           };
     }
 })();

@@ -46,10 +46,7 @@
               .when('/transaction',{
                 templateUrl:'views/transanction/transactions.view.html',
                 controller:'TransactionsCtrl',
-                controllerAs:'model',
-                resolve: {
-                    loggedin: checkCurrentUser
-                }
+                controllerAs:'model'
               })
               .when('/transactions',{
                 templateUrl:'views/transanction/transaction.view.html',

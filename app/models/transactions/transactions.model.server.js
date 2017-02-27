@@ -1,10 +1,21 @@
 'use strict';
 
 var Mongo = require('mongodb');
-
+var Transaction = function(t) {
+  this.accountId = Mongo.ObjectID(t.accountId);
+  this.date = new Date(t.date);
+  this.type = t.type;
+  this.amount = t.amount * 1;
+};
 //module.exports = Transaction;
 module.exports = function() {
 
+  var Transaction = function(t) {
+    this.accountId = Mongo.ObjectID(t.accountId);
+    this.date = new Date(t.date);
+    this.type = t.type;
+    this.amount = t.amount * 1;
+  };
 
   var api = {
     // findUserByCredentials: findUserByCredentials,

@@ -1,6 +1,9 @@
 //var db="webapi";
-var port=3333;
+
 //var db="dbtest";
+
+var port=3000;
+
 var express       = require('express');
 var app           = express();
 var bodyParser    = require('body-parser');
